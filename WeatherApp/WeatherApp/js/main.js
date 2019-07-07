@@ -21,6 +21,7 @@
                     return response.json();
                 })
                 .then(data => {
+                    console.log(data);
                     const { temperature, summary, icon } = data.currently;
                     //Set DOM Elements from API
                     temperatureDegree.textContent = temperature;
@@ -41,6 +42,19 @@
                             temperatureDegree.textContent = temperature;
                         }
                     })
+
+                    //
+                    let dropdownValue = 0;
+
+                    
+
+                    const daily = data.daily.data;
+                    let day = dropdownValue;
+                    const highTemperatue = daily[day].temperatureHigh;
+                    const lowTemperature = daily[day].temperatureLow;
+                    const daySummary = daily[day].summary;
+                    let dayIcon = daily[day].icon.replace(/-/g, "_").toUpperCase();
+                    console.log(highTemperatue, lowTemperature, daySummary, dayIcon);
                 });
         })
     } else {
@@ -54,5 +68,13 @@
         return skycons.set(iconID, Skycons[currentIcon]);
     }
 
-    
+
 });
+
+document.getElementById('day-dropdown').addEventListener('change', selectDay);
+
+function selectDay() {
+    let dropdownValue = document.getElementById('day-dropdown').value;
+    console.log(dropdownValue, daySummary);
+    return dropdownValue;
+};
