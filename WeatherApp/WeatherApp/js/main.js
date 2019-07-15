@@ -1,4 +1,12 @@
-﻿window.addEventListener('load', () => {
+﻿let daily;
+let day;
+let highTemperatue;
+let lowTemperature;
+let daySummary;
+let dayIcon;
+
+window.addEventListener('load', () => {
+
     let long;
     let lat;
     let temperatureDescription = document.querySelector(".temperature-description");
@@ -42,19 +50,17 @@
                             temperatureDegree.textContent = temperature;
                         }
                     })
-
-                    //
+                   
                     let dropdownValue = 0;
 
-                    
-
-                    const daily = data.daily.data;
-                    let day = dropdownValue;
-                    const highTemperatue = daily[day].temperatureHigh;
-                    const lowTemperature = daily[day].temperatureLow;
-                    const daySummary = daily[day].summary;
-                    let dayIcon = daily[day].icon.replace(/-/g, "_").toUpperCase();
+                    daily = data.daily.data;
+                    day = dropdownValue;
+                    highTemperatue = daily[day].temperatureHigh;
+                    lowTemperature = daily[day].temperatureLow;
+                    daySummary = daily[day].summary;
+                    dayIcon = daily[day].icon.replace(/-/g, "_").toUpperCase();
                     console.log(highTemperatue, lowTemperature, daySummary, dayIcon);
+
                 });
         })
     } else {
@@ -71,10 +77,10 @@
 
 });
 
-document.getElementById('day-dropdown').addEventListener('change', selectDay);
-
 function selectDay() {
     let dropdownValue = document.getElementById('day-dropdown').value;
-    console.log(dropdownValue, daySummary);
-    return dropdownValue;
+
+    console.log(dropdownValue, daySummary, day);
 };
+
+document.getElementById('day-dropdown').addEventListener('change', selectDay);
