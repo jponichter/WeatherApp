@@ -1,19 +1,16 @@
-﻿let daily;
-let day;
-let highTemperatue;
-let lowTemperature;
-let daySummary;
-let dayIcon;
+﻿let temperatureDescription = document.querySelector(".temperature-description");
+let temperatureDegree = document.querySelector(".temperature-degree");
+let temperatureSection = document.querySelector('.temperature');
+const temperatureSpan = document.querySelector('.temperature span')
+
+let details;
+
 
 window.addEventListener('load', () => {
 
     let long;
     let lat;
-    let temperatureDescription = document.querySelector(".temperature-description");
-    let temperatureDegree = document.querySelector(".temperature-degree");
     let locationTimezone = document.querySelector('.location-timezone');
-    let temperatureSection = document.querySelector('.temperature');
-    const temperatureSpan = document.querySelector('.temperature span')
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -50,17 +47,7 @@ window.addEventListener('load', () => {
                             temperatureDegree.textContent = temperature;
                         }
                     })
-                   
-                    let dropdownValue = 0;
-
-                    daily = data.daily.data;
-                    day = dropdownValue;
-                    highTemperatue = daily[day].temperatureHigh;
-                    lowTemperature = daily[day].temperatureLow;
-                    daySummary = daily[day].summary;
-                    dayIcon = daily[day].icon.replace(/-/g, "_").toUpperCase();
-                    console.log(highTemperatue, lowTemperature, daySummary, dayIcon);
-
+                    details = data;
                 });
         })
     } else {
@@ -73,14 +60,20 @@ window.addEventListener('load', () => {
         skycons.play();
         return skycons.set(iconID, Skycons[currentIcon]);
     }
-
-
 });
 
 function selectDay() {
-    let dropdownValue = document.getElementById('day-dropdown').value;
+    let day = document.getElementById('day-dropdown').value;    
+    let daily = details.daily.data;
+    let highTemperature = daily[day].temperatureHigh;
+    let lowTemperature = daily[day].temperatureLow;
+    let daySummary = daily[day].summary;
+    let dayIcon = daily[day].icon.replace(/-/g, "_").toUpperCase();
+    console.log(lowTemperature, daySummary);
 
-    console.log(dropdownValue, daySummary, day);
+    temperatureDegree.textContent = lowTemperature + ' - ' + highTemperature;
+    temperatureDescription.textContent = daySummary;
 };
 
 document.getElementById('day-dropdown').addEventListener('change', selectDay);
+
