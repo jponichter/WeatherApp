@@ -1,13 +1,12 @@
-﻿let temperatureDescription = document.querySelector(".temperature-description");
-let temperatureDegree = document.querySelector(".temperature-degree");
-let temperatureSection = document.querySelector('.temperature');
-const temperatureSpan = document.querySelector('.temperature span')
+﻿const temperatureDescription = document.querySelector(".temperature-description");
+const temperatureDegree = document.querySelector(".temperature-degree");
+const temperatureSection = document.querySelector('.temperature');
+const temperatureSpan = document.querySelector('.temperature span');
 
 let details;
 let temperature;
 let minTemperature;
 let maxTemperature;
-
 
 window.addEventListener('load', () => {
 
@@ -41,28 +40,32 @@ window.addEventListener('load', () => {
                     temperatureDescription.textContent = summary;
                     locationTimezone.textContent = details.timezone;
 
-                    
-
                     //Set Icon
                     setIcons(icon, document.querySelector(".icon"));
+
+                    //End preloader
+                    let preload = document.querySelector('.show-preloader');
+                    preload.classList.add('preload-finish');
                 });
         })
     } else {
         h1.textContent = "This is not working";
     }
 
-    function setIcons(icon, iconID) {
-
-        const skycons = new Skycons({ color: "white" });
-        const currentIcon = icon.replace(/-/g, "_").toUpperCase();
-        skycons.play();
-        return skycons.set(iconID, Skycons[currentIcon]);
-    }
+    
+    
 });
 
+function setIcons(icon, iconID) {
+
+    const skycons = new Skycons({ color: "white" });
+    const currentIcon = icon.replace(/-/g, "_").toUpperCase();
+    skycons.play();
+    return skycons.set(iconID, Skycons[currentIcon]);
+}
 
 
-//Change temperature to Celsius
+//Change temperature to Celsius on click
 function degreeConverter() {
     if (temperatureSpan.textContent === "C") {
         temperatureSpan.textContent = "F";
@@ -74,14 +77,13 @@ function degreeConverter() {
 }
 temperatureSection.addEventListener('click', degreeConverter);
 
-
+//Change a day
 function selectDay() {
     let day = document.getElementById('day-dropdown').value;    
     let daily = details.daily.data[day];
     maxTemperature = daily.temperatureMax;
     minTemperature = daily.temperatureMin;
     let daySummary = daily.summary;
-    let dayIcon = daily.icon.replace(/-/g, "_").toUpperCase();
     console.log(minTemperature, daySummary);
 
     if (temperatureSpan.textContent === "F") {
@@ -91,8 +93,11 @@ function selectDay() {
         temperatureSpan.textContent = "C";
         temperatureDegree.textContent = Math.floor((minTemperature - 32) * (5 / 9)) + ' - ' + Math.floor((maxTemperature - 32) * (5 / 9));
     }
-    //temperatureDegree.textContent = Math.floor((minTemperature - 32) * (5 / 9)) + ' - ' + Math.floor((maxTemperature - 32) * (5 / 9));
+
     temperatureDescription.textContent = daySummary;
+
+    let icon = daily.icon;
+    setIcons(icon, document.querySelector(".icon"));
 };
 
 document.getElementById('day-dropdown').addEventListener('change', selectDay);
