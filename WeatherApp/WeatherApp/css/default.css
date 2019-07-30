@@ -12,22 +12,44 @@
   color: white;
 }
 
+
+
+
 .location,
 .temperature {
-  height: 30vh;
-  width: 50%;
+  font-size: 26px;
+  text-align: center;
+}
+
+@media(min-width:768px){
+  .location,
+  .temperature {
+   /* height: 30vh;*/
+     width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.location-timezone{
   display: flex;
-  justify-content: space-between;
+}
+
+.icon{
   align-items: center;
+  justify-content: center;
 }
 
 .temperature {
   flex-direction: column;
+  text-align: center;
 }
 
 .degree-section {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .degree-section span {
@@ -36,7 +58,8 @@
 }
 
 .degree-section h2 {
-  font-size: 40px;
+  font-size: 60px;
+
 }
 
 .show-preloader {
