@@ -40,6 +40,8 @@ window.addEventListener('load', () => {
                     temperatureDescription.textContent = summary;
                     locationTimezone.textContent = details.timezone;
 
+                    setDay();
+
                     //Set Icon
                     setIcons(icon, document.querySelector(".icon"));
 
@@ -64,12 +66,35 @@ function setIcons(icon, iconID) {
     return skycons.set(iconID, Skycons[currentIcon]);
 }
 
+function setDay() {
+    let date = new Date();
+    dOfMonth = date.getDate();
+    month = date.getMonth() + 1;
+    year = date.getFullYear();
+
+    for(i=1; i<8; i++){
+        if(dOfMonth + i < 10 && month < 10){   
+        document.getElementById('op'+i).textContent= '0' + (dOfMonth + i) + '.' 
+        + '0' + month + '.' + year;
+        }else if(dOfMonth + i < 10){
+        document.getElementById('op'+i).textContent= '0' + (dOfMonth + i) + '.' + month 
+        + '.' + year;
+        }else if(month < 10){
+            document.getElementById('op'+i).textContent= dOfMonth + i + '.' + '0' + month 
+        + '.' + year;
+        }else{
+            document.getElementById('op'+i).textContent= dOfMonth + i + '.' 
+        + month + '.' + year;
+        }
+    }
+
+}
 
 //Change temperature to Celsius on click
 function degreeConverter() {
     if (temperatureSpan.textContent === "C") {
         temperatureSpan.textContent = "F";
-        temperatureDegree.textContent = minTemperature + ' - ' + maxTemperature;
+        temperatureDegree.textContent = Math.floor(minTemperature) + ' - ' + Math.floor(maxTemperature);
     } else if (temperatureSpan.textContent === "F"){
         temperatureSpan.textContent = "C";
         temperatureDegree.textContent = Math.floor((minTemperature - 32) * (5 / 9)) + ' - ' + Math.floor((maxTemperature - 32) * (5 / 9));
@@ -88,7 +113,7 @@ function selectDay() {
 
     if (temperatureSpan.textContent === "F") {
         temperatureSpan.textContent = "F";
-        temperatureDegree.textContent = minTemperature + ' - ' + maxTemperature;
+        temperatureDegree.textContent = Math.floor(minTemperature) + ' - ' + Math.floor(maxTemperature);
     } else if (temperatureSpan.textContent === "C") {
         temperatureSpan.textContent = "C";
         temperatureDegree.textContent = Math.floor((minTemperature - 32) * (5 / 9)) + ' - ' + Math.floor((maxTemperature - 32) * (5 / 9));
