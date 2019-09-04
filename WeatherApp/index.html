@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>WeatherApp</title>
+    <link href="css/default.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="show-preloader">
+      <div class="box">
+        <span>Loading...</span>
+      </div>
+      <p>You need to give access to your location</p>
+    </div>
+    <div class="day">
+      <select id="day-dropdown">
+        <option id="op0" value="0">Today</option>
+        <option id="op1" value="1">16.08.2019</option>
+        <option id="op2" value="2">2</option>
+        <option id="op3" value="3">3</option>
+        <option id="op4" value="4">4</option>
+        <option id="op5" value="5">5</option>
+        <option id="op6" value="6">6</option>
+        <option id="op7" value="7">7</option>
+      </select>
+    </div>
+    <div class="location">
+      <h1 class="location-timezone">Timezone</h1>
+      <canvas class="icon" width="256" height="256"></canvas>
+    </div>
+    <div class="temperature">
+      <div class="degree-section">
+        <h2 class="temperature-degree">34</h2>
+        <span>C</span>
+      </div>
+      <div class="temperature-description">It's cold</div>
+    </div>
+    <script src="js/skycons.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
